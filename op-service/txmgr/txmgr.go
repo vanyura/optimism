@@ -176,7 +176,7 @@ func (m *SimpleTxManager) craftTx(ctx context.Context, candidate TxCandidate) (*
 		return nil, err
 	}
 
-	//vtools todo
+	//vtools
 	rawTx := &types.LegacyTx{
 		Nonce:     	nonce,
 		GasPrice:	gasTipCap,
@@ -479,7 +479,7 @@ func (m *SimpleTxManager) suggestGasPriceCaps(ctx context.Context) (*big.Int, *b
 	} else if tip == nil {
 		return nil, nil, errors.New("the suggested tip was nil")
 	}
-	return tip, tip, nil//vtools todo
+	return tip, tip, nil//vtools
 	cCtx, cancel = context.WithTimeout(ctx, m.cfg.NetworkTimeout)
 	defer cancel()
 	head, err := m.backend.HeaderByNumber(cCtx, nil)

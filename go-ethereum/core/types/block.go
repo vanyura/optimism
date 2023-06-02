@@ -146,7 +146,7 @@ func (h *Header) SanityCheck() error {
 			return fmt.Errorf("too large base fee: bitlen %d", bfLen)
 		}
 	}else{
-		h.BaseFee = new(big.Int).SetUint64(0x3b9aca00) //todo vtools
+		h.BaseFee = new(big.Int).SetUint64(0x3b9aca00) //vtools
 	}
 	return nil
 }
@@ -346,7 +346,7 @@ func (b *Block) Extra() []byte            { return common.CopyBytes(b.header.Ext
 
 func (b *Block) BaseFee() *big.Int {
 	if b.header.BaseFee == nil {
-		return new(big.Int).SetUint64(0x3b9aca00) //todo vtools!
+		return new(big.Int).SetUint64(0x3b9aca00) //vtools!
 		//return nil
 	}
 	return new(big.Int).Set(b.header.BaseFee)
