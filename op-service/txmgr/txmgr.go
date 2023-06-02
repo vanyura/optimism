@@ -176,14 +176,22 @@ func (m *SimpleTxManager) craftTx(ctx context.Context, candidate TxCandidate) (*
 		return nil, err
 	}
 
-	rawTx := &types.DynamicFeeTx{
+	//vtools todo
+	rawTx := &types.LegacyTx{
+		Nonce:     	nonce,
+		GasPrice:	gasTipCap,
+		//Gas:		10e6,
+		To:        candidate.To,
+		Data:      candidate.TxData,
+	}
+	/*rawTx := &types.DynamicFeeTx{
 		ChainID:   m.chainID,
 		Nonce:     nonce,
 		To:        candidate.To,
 		GasTipCap: gasTipCap,
 		GasFeeCap: gasFeeCap,
 		Data:      candidate.TxData,
-	}
+	}*/
 
 	m.l.Info("creating tx", "to", rawTx.To, "from", m.cfg.From)
 
@@ -471,6 +479,7 @@ func (m *SimpleTxManager) suggestGasPriceCaps(ctx context.Context) (*big.Int, *b
 	} else if tip == nil {
 		return nil, nil, errors.New("the suggested tip was nil")
 	}
+	return tip, tip, nil//vtools todo
 	cCtx, cancel = context.WithTimeout(ctx, m.cfg.NetworkTimeout)
 	defer cancel()
 	head, err := m.backend.HeaderByNumber(cCtx, nil)

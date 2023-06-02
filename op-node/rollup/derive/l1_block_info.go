@@ -72,9 +72,16 @@ func (info *L1BlockInfo) MarshalBinary() ([]byte, error) {
 	if err := solabi.WriteUint64(w, info.Time); err != nil {
 		return nil, err
 	}
-	if err := solabi.WriteUint256(w, info.BaseFee); err != nil {
+	baseFee:=info.BaseFee
+	if(info.BaseFee == nil){//vtools todo
+		baseFee=new(big.Int).SetUint64(0x3b9aca00)
+	}
+	if err := solabi.WriteUint256(w, baseFee); err != nil {
 		return nil, err
 	}
+	//if err := solabi.WriteUint256(w, info.BaseFee); err != nil {
+	//	return nil, err
+	//}
 	if err := solabi.WriteHash(w, info.BlockHash); err != nil {
 		return nil, err
 	}
